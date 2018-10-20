@@ -1,5 +1,10 @@
+/*
+ * Filename : App.js
+ */
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Search from './components/search'
 
 export default class App extends React.Component {
   render() {
@@ -7,7 +12,8 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text>Salut ca va.</Text>
         <Text>Bienvenue dans ma super appli ...</Text>
-        <Text>Ceci est un test ...</Text>
+        <Text>Ceci est un test ..!.</Text>
+        <Search/>
       </View>
     );
   }
