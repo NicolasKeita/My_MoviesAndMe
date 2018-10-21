@@ -9,10 +9,17 @@ class FilmItem extends React.Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={{ flex: 1, backgroundColor: "grey" }}>
-                </View>
-                <View style={{ flex: 4, backgroundColor: "red"}}>
-                    <Text style={styles.titleText}>Titre du film</Text>
+                <View style={{flexDirection: "row"}}>
+                    <View style={{ flex: 1, backgroundColor: "grey" }}>
+                    </View>
+                    <View style={{ flex: 4}}>
+                        <View style={{ flexDirection: "row"}}>
+                            <Text style={styles.titleText, {flex: 3}}>Titre du film</Text>
+                            <Text style={{flex: 1}}>Vote</Text>
+                        </View>
+                        <Text>Description</Text>
+                        <Text>Sorti le</Text>
+                    </View>
                 </View>
             </View>
         )
@@ -21,10 +28,7 @@ class FilmItem extends React.Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        //height: 190
-        flex: 1,
-        flexDirection: "row",
-        backgroundColor: "black"
+        height: 190,
     },
     titleText: {
 
