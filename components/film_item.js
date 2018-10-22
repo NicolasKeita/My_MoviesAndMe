@@ -3,38 +3,42 @@
  */
 
 import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, View, Image} from 'react-native'
 
 class FilmItem extends React.Component {
     render() {
+        const film = this.props.film;
         return (
             <View style={styles.mainContainer}>
-                <View style={{flex: 1, flexDirection: "row"}}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                     <View style={{ flex: 1, backgroundColor: "grey" }}>
-
+                        <Image
+                            style={styles.image}
+                            source={{url: "image"}}/>
                     </View>
                     <View style={{ flex: 4 }}>
                         <View style={{ flex: 1, flexDirection: "row"}}>
                             <View style={{ flex: 4}}>
-                                <Text style={styles.titleText}>
-                                    Titre du film
+                                <Text style={styles.titleText}
+                                      numberOfLines={2}>
+                                    {film.title}
                                 </Text>
                             </View>
-                            <View style={{ flex: 1}}>
+                            <View style={{flex: 1}}>
                                 <Text style={styles.voteText}>
-                                    Vote
+                                    {film.vote_average}
                                 </Text>
                             </View>
                         </View>
-                        <View style={{flex: 4}}>
+                        <View style={{flex: 2}}>
                             <Text style={styles.descriptionText}
                                   numberOfLines={6}>
-                                Description
+                                {film.overview}
                             </Text>
                         </View>
                         <View style={{flex: 1}}>
                             <Text style={styles.releaseDate}>
-                                Sorti le 0/0/0000
+                                Sorti le {film.release_date}
                             </Text>
                         </View>
                     </View>
@@ -47,6 +51,11 @@ class FilmItem extends React.Component {
 const styles = StyleSheet.create({
     mainContainer: {
         height: 190,
+    },
+    image: {
+        width: 120,
+        height: 180,
+        margin: 5,
     },
     titleText: {
         fontWeight: "bold",
@@ -63,7 +72,9 @@ const styles = StyleSheet.create({
         fontStyle: "italic",
     },
     releaseDate: {
-        textAlign: "right"
+        marginTop: 10,
+        textAlign: "right",
+        fontSize: 14
     }
 })
 
