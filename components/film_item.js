@@ -3,14 +3,24 @@
  */
 
 import React from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity
+} from 'react-native'
 import {getImageFromApi} from "../api/tmdb_api";
 
 class FilmItem extends React.Component {
     render() {
         const film = this.props.film;
+        const displayDetailForFilm = this.props.displayDetailForFilm;
+        //const {film, displayDetailForFilm } = this.props
         return (
-            <View style={styles.mainContainer}>
+            <TouchableOpacity
+                style={styles.mainContainer}
+                onPress={() => displayDetailForFilm(film.id)}>
                 <View style={{ flex: 1, flexDirection: "row" }}>
                     <View>
                         <Image
@@ -44,7 +54,7 @@ class FilmItem extends React.Component {
                         </View>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }
