@@ -4,6 +4,7 @@
 
 import React from 'react'
 import {StyleSheet, Text, View, Image} from 'react-native'
+import {getImageFromApi} from "../api/tmdb_api";
 
 class FilmItem extends React.Component {
     render() {
@@ -11,12 +12,12 @@ class FilmItem extends React.Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={{ flex: 1, flexDirection: "row" }}>
-                    <View style={{ flex: 1, backgroundColor: "grey" }}>
+                    <View>
                         <Image
                             style={styles.image}
-                            source={{url: "image"}}/>
+                            source={{uri: getImageFromApi(film.poster_path)}}/>
                     </View>
-                    <View style={{ flex: 4 }}>
+                    <View style={{ flex: 1 }}>
                         <View style={{ flex: 1, flexDirection: "row"}}>
                             <View style={{ flex: 4}}>
                                 <Text style={styles.titleText}
