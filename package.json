@@ -14,6 +14,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-navigation": "^2.18.1",
     "moment": "latest",
-    "numeral": "latest"
+    "numeral": "latest",
+    "redux": "latest",
+    "react-redux": "latest"
   }
 }
