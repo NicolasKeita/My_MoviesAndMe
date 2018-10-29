@@ -11,7 +11,8 @@ import {
     Button,
     ActivityIndicator
 } from 'react-native'
-import FilmItem from "./film_item"
+import {connect} from "react-redux"
+import FilmItem from "./FilmItem"
 import { getFilmsFromApiWithSearchedText } from "../API/tmdb_api";
 
 class Search extends React.Component {
@@ -76,7 +77,7 @@ class Search extends React.Component {
                 />
                 <Button
                     style={{height: 50}}
-                    title={'Rechercher'} onPress={() => this._searchFilms()}
+                    title="Rechercher" onPress={() => this._searchFilms()}
                 />
                 <FlatList
                     data={this.state.films}
@@ -84,6 +85,9 @@ class Search extends React.Component {
                     renderItem={({item}) =>
                         <FilmItem
                             film={item}
+                            isFavoriteFilm=
+                                {this.props.favoritesFilm.findIndex(
+                                    film => film.id === item.id) ==! -1}
                             displayDetailForFilm={this._displayDetailForFilm}
                         />}
                     onEndReachedThreshold={0.5}
@@ -125,4 +129,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Search
+const mapStateToProps = (state) => {
+    return (state)
+}
+
+export default connect(mapStateToProps)(Search)

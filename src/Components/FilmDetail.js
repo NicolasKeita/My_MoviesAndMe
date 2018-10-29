@@ -1,19 +1,21 @@
 /*
- * Filename : Component/film_detail.js
+ * Filename : Component/FilmDetail.js
  */
 
 import React from "react"
-import moment from "moment";
-import numeral from "numeral";
+import moment from "moment"
+import numeral from "numeral"
 import {
     StyleSheet,
     View,
     Text,
     ActivityIndicator,
     ScrollView,
-    Image
+    Image,
+    TouchableOpacity
 } from "react-native"
-import {getFilmDetailFromApi, getImageFromApi} from "../API/tmdb_api";
+import {connect} from "react-redux"
+import {getFilmDetailFromApi, getImageFromApi} from "../API/tmdb_api"
 
 class FilmDetail extends React.Component {
     constructor(props) {
@@ -60,6 +62,27 @@ class FilmDetail extends React.Component {
         }
         return (companies);
     }
+    _toggleFavorite() {
+        const action = {
+            type: "TOGGLE_FAVORITE",
+            value: this.state.film
+        }
+        this.props.dispatch(action)
+    }
+    _displayFavoriteImage() {
+        let sourceImage = require("../../assets/Images/ic_favorite_border.png")
+
+        if (this.props.favoritesFilm.findIndex(
+            item => item.id === this.state.film.id) !== -1) {
+            sourceImage = require("../../assets/Images/ic_favorite.png")
+        }
+        return (
+            <Image
+                style={styles.favoriteImage}
+                source={sourceImage}
+            />
+        )
+    }
     _displayFilm() {
         const film = this.state.film;
         if (film === undefined)
@@ -71,6 +94,11 @@ class FilmDetail extends React.Component {
                     source={
                         {uri: getImageFromApi(film.backdrop_path)}}/>
                 <Text style={styles.title}>{film.title}</Text>
+                <TouchableOpacity
+                    style={styles.favoriteContainer}
+                    onPress={() => this._toggleFavorite()}>
+                    {this._displayFavoriteImage()}
+                </TouchableOpacity>
                 <Text style={styles.description}>
                     {film.overview}
                 </Text>
@@ -157,7 +185,18 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginTop: 5,
         fontWeight: "bold"
+    },
+    favoriteContainer: {
+        alignItems: "center"
+    },
+    favoriteImage: {
+        width: 40,
+        height: 40
     }
 })
 
-export default FilmDetail
+const mapStateToProps = (state) => {
+    return (state)
+}
+
+export default connect(mapStateToProps)(FilmDetail)

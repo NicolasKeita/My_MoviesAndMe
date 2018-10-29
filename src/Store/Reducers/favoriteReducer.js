@@ -5,7 +5,7 @@
 const initialState = { favoritesFilm: [] }
 
 function toggleFavorite(state = initialState, action) {
-    let nextState = {...state};
+    let nextState = undefined
 
     switch (action.type) {
         case "TOGGLE_FAVORITE":
@@ -24,7 +24,6 @@ function toggleFavorite(state = initialState, action) {
                 }
             }
             return (nextState ? nextState : state);
-//            return (nextState || state);
         default:
             return (state);
     }

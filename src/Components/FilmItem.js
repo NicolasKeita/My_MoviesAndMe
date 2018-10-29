@@ -1,5 +1,5 @@
 /*
- * Filename : Components/film_item.js
+ * Filename : Components/FilmItem.js
  */
 
 import React from 'react'
@@ -13,10 +13,43 @@ import {
 import {getImageFromApi} from "../API/tmdb_api";
 
 class FilmItem extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    _displayTitle(film) {
+        return (
+            <View style={{ flex: 4}}>
+                <Text style={styles.titleText}
+                      numberOfLines={2}>
+                    {film.title}
+                </Text>
+            </View>
+        )
+    }
+    _displayVote(film) {
+        return (
+            <View style={{flex: 1}}>
+                <Text style={styles.voteText}>
+                    {film.vote_average}
+                </Text>
+            </View>
+        )
+    }
+    _displayHeartIcon(film) {
+        if (this.props.isFavoriteFilm) {
+            let sourceImage = require("../../assets/Images/ic_favorite.png")
+            return (
+                <View>
+                    <Image
+                        style={styles.heartIcon}
+                        source={sourceImage}/>
+                </View>
+            )
+        }
+    }
     render() {
         const film = this.props.film;
         const displayDetailForFilm = this.props.displayDetailForFilm;
-        //const {film, displayDetailForFilm } = this.props
         return (
             <TouchableOpacity
                 style={styles.mainContainer}
@@ -29,17 +62,9 @@ class FilmItem extends React.Component {
                     </View>
                     <View style={{ flex: 1 }}>
                         <View style={{ flex: 1, flexDirection: "row"}}>
-                            <View style={{ flex: 4}}>
-                                <Text style={styles.titleText}
-                                      numberOfLines={2}>
-                                    {film.title}
-                                </Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text style={styles.voteText}>
-                                    {film.vote_average}
-                                </Text>
-                            </View>
+                            {this._displayHeartIcon(film)}
+                            {this._displayTitle(film)}
+                            {this._displayVote(film)}
                         </View>
                         <View style={{flex: 2}}>
                             <Text style={styles.descriptionText}
@@ -86,6 +111,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         textAlign: "right",
         fontSize: 14
+    },
+    heartIcon: {
+        width : 25,
+        height: 25
     }
 })
 

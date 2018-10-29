@@ -4,7 +4,7 @@
 
 import { createStackNavigator } from "react-navigation";
 import Search from "../Components/Search.js";
-import FilmDetail from "../Components/film_detail.js";
+import FilmDetail from "../Components/FilmDetail.js";
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
