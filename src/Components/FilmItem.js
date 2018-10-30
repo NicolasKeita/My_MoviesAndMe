@@ -35,8 +35,8 @@ class FilmItem extends React.Component {
             </View>
         )
     }
-    _displayHeartIcon(film) {
-        if (this.props.isFavoriteFilm) {
+    _displayHeartIcon(isFavoriteFilm) {
+        if (isFavoriteFilm) {
             let sourceImage = require("../../assets/Images/ic_favorite.png")
             return (
                 <View>
@@ -62,7 +62,7 @@ class FilmItem extends React.Component {
                     </View>
                     <View style={{ flex: 1 }}>
                         <View style={{ flex: 1, flexDirection: "row"}}>
-                            {this._displayHeartIcon(film)}
+                            {this._displayHeartIcon(this.props.isFavoriteFilm)}
                             {this._displayTitle(film)}
                             {this._displayVote(film)}
                         </View>

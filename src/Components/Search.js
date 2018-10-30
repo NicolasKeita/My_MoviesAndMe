@@ -4,16 +4,14 @@
 
 import React from 'react'
 import {
-    FlatList,
     StyleSheet,
     View,
     TextInput,
     Button,
     ActivityIndicator
 } from 'react-native'
-import {connect} from "react-redux"
-import FilmItem from "./FilmItem"
-import { getFilmsFromApiWithSearchedText } from "../API/tmdb_api";
+import FilmList from "./FilmList"
+import { getFilmsFromApiWithSearchedText } from "../API/tmdb_api"
 
 class Search extends React.Component {
     constructor(props) {
@@ -25,6 +23,7 @@ class Search extends React.Component {
         this.searchedText = "";
         this.page = 0;
         this.totalPages = 0;
+        this._loadFilms = this._loadFilms.bind(this)
     }
     _searchFilms() {
         this.page = 0;
@@ -34,9 +33,6 @@ class Search extends React.Component {
         }, () => {
             this._loadFilms()
         })
-    }
-    _displayDetailForFilm = (idFilm) => {
-        this.props.navigation.navigate("FilmDetail", { idFilm: idFilm});
     }
     _searchTextInputChanged(text) {
         this.searchedText = text;
@@ -51,7 +47,7 @@ class Search extends React.Component {
                 this.page = data.page;
                 this.totalPages = data.total_pages;
                 this.setState({
-                    films: this.state.films.concat(data.results),
+                    films: [...this.state.films, ...data.results],
                     isLoading: false
                 })
             });
@@ -79,26 +75,12 @@ class Search extends React.Component {
                     style={{height: 50}}
                     title="Rechercher" onPress={() => this._searchFilms()}
                 />
-                <FlatList
-                    data={this.state.films}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) =>
-                        <FilmItem
-                            film={item}
-                            isFavoriteFilm=
-                                {this.props.favoritesFilm.findIndex(
-                                    film => film.id === item.id) ==! -1}
-                            displayDetailForFilm={this._displayDetailForFilm}
-                        />}
-                    onEndReachedThreshold={0.5}
-                    onEndReached={() => {
-                        if (
-                            this.state.films.length > 0
-                            && this.page < this.totalPages
-                        ) {
-                            this._loadFilms()
-                        }
-                    }}
+                <FilmList
+                    films={this.state.films}
+                    navigation={this.props.navigation}
+                    loadFilms={this._loadFilms}
+                    page={this.page}
+                    totalPages={this.totalPages}
                 />
                 {this._displayLoading()}
             </View>
@@ -108,7 +90,7 @@ class Search extends React.Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 0,
+        flex: 1,
     },
     textInput: {
         marginLeft: 5,
@@ -129,8 +111,4 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = (state) => {
-    return (state)
-}
-
-export default connect(mapStateToProps)(Search)
+export default Search
