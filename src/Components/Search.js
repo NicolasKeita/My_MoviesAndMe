@@ -64,10 +64,10 @@ class Search extends React.Component {
     }
     render() {
         return (
-            <View style={ styles.mainContainer }>
+            <View style={styles.mainContainer}>
                 <TextInput
                     style={[styles.textInput, { marginBottom: 10 }]}
-                    placeholder={'Titre du film'}
+                    placeholder="Titre du film"
                     onChangeText={(text) => this._searchTextInputChanged(text)}
                     onSubmitEditing={() => this._searchFilms()}
                 />
@@ -81,6 +81,7 @@ class Search extends React.Component {
                     loadFilms={this._loadFilms}
                     page={this.page}
                     totalPages={this.totalPages}
+                    FavoriteList={false}
                 />
                 {this._displayLoading()}
             </View>

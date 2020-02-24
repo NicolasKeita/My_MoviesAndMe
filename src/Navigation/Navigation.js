@@ -8,6 +8,7 @@ import {createBottomTabNavigator, createStackNavigator} from "react-navigation";
 import Search from "../Components/Search.js";
 import FilmDetail from "../Components/FilmDetail.js";
 import Favorites from "../Components/Favorites";
+import Test from "../Components/Test.js"
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
@@ -21,8 +22,25 @@ const SearchStackNavigator = createStackNavigator({
     }
 })
 
+const FavoritesStackNavigator = createStackNavigator({
+    Favorites: {
+        screen: Favorites,
+        navigationOptions: {
+            title: "Favoris"
+        }
+    },
+    FilmDetail: {
+        screen: FilmDetail
+    }
+})
+
 const MoviesTabNavigator = createBottomTabNavigator(
     {
+        /*
+        Test: {
+            screen: Test,
+        },
+        */
         Search: {
             screen: SearchStackNavigator,
             navigationOptions: {
@@ -36,7 +54,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
             }
         },
         Favorites: {
-            screen: Favorites,
+            screen: FavoritesStackNavigator,
             navigationOptions: {
                 tabBarIcon: () => {
                     return (
