@@ -1,22 +1,20 @@
 /*
- * Filename : App.js
+ * Filename : index.js
  */
 
 import React from 'react'
-import Navigation from "./src/Navigation/Navigation.js"
-import {Provider} from "react-redux"
-import Store from './src/Store/configureStore.js'
-
+import { Provider } from "react-redux"
+import configureStore from './src/Store/configureStore.js'
 import { AppRegistry } from "react-native";
 import { name as appName } from "./app.json";
-AppRegistry.registerComponent(appName, () => App);
+import App from "./App";
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <Provider store={Store}>
-                <Navigation/>
-            </Provider>
-        );
-    }
-}
+const Store = configureStore();
+
+const My_App = () => (
+    <Provider store={ Store }>
+        <App/>
+    </Provider>
+);
+
+AppRegistry.registerComponent(appName, () => My_App);

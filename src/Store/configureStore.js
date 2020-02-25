@@ -5,6 +5,8 @@
 import {createStore} from "redux";
 import toggleFavorite from "./Reducers/favoriteReducer.js"
 
+const configureStore = () => {
+    return createStore(toggleFavorite);
+};
 
-
-export default createStore(toggleFavorite)
+export default configureStore;
