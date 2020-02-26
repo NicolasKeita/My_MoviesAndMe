@@ -22,7 +22,7 @@ import {getFilmDetailFromApi, getImageFromApi} from "../API/tmdb_api"
 
 class FilmDetail extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             film: undefined,
             isLoading: true
@@ -60,7 +60,7 @@ class FilmDetail extends React.Component {
         if (companiesArray.length === 0)
             return ("inconnu");
         companies = companiesArray[0].name;
-        for (var i = 1; i < companiesArray.length; ++i) {
+        for (let i = 1; i < companiesArray.length; ++i) {
             companies += " / " + companiesArray[i].name;
         }
         return (companies);
@@ -69,11 +69,11 @@ class FilmDetail extends React.Component {
         const action = {
             type: "TOGGLE_FAVORITE",
             value: this.state.film
-        }
+        };
         this.props.dispatch(action)
     }
     _displayFavoriteImage() {
-        let sourceImage = require("../../assets/Images/ic_favorite_border.png")
+        let sourceImage = require("../../assets/Images/ic_favorite_border.png");
 
         if (this.props.favoritesFilm.findIndex(
             item => item.id === this.state.film.id) !== -1) {
@@ -129,7 +129,7 @@ class FilmDetail extends React.Component {
         )
     }
     _shareFilm() {
-        const film = this.state.film
+        const film = this.state.film;
         Share.share({title: film.title, message: film.overview})
             .then(
                 Alert.alert(
@@ -151,8 +151,8 @@ class FilmDetail extends React.Component {
             )
     }
     _displayFloatingActionButton() {
-        const film = this.state.film
-        if (film != undefined && Platform.OS === "android") {
+        const film = this.state.film;
+        if (film !== undefined && Platform.OS === "android") {
             return (
                 <TouchableOpacity
                     style={styles.shareTouchableFloatingActionButton}
@@ -177,15 +177,15 @@ class FilmDetail extends React.Component {
     componentDidMount() {
         const favoriteFilmIndex =
             this.props.favoritesFilm.findIndex(
-                item => item.id === this.props.navigation.state.params.idFilm)
+                item => item.id === this.props.route.params.idFilm);
         if (favoriteFilmIndex !== -1) {
             this.setState({
                 film: this.props.favoritesFilm[favoriteFilmIndex]
-            })
+            });
             return
         }
-        this.setState({isLoading: true})
-        getFilmDetailFromApi(this.props.navigation.state.params.idFilm)
+        this.setState({isLoading: true});
+        getFilmDetailFromApi(this.props.route.params.idFilm)
             .then(data => {
                 this.setState({
                     film: data,
@@ -259,10 +259,10 @@ const styles = StyleSheet.create({
         width : 30,
         height: 30
     }
-})
+});
 
 const mapStateToProps = (state) => {
     return (state)
-}
+};
 
 export default connect(mapStateToProps)(FilmDetail)

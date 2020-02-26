@@ -60,16 +60,28 @@ function MyTabs() {
             <MoviesTabNavigator.Screen
                 name="Search"
                 component={ SearchStack }
-//                component={ Search }
-                /*
-                screenOptions={ } => ({
-                    tabBarIcon: ({ })
-            }}*/
+                options={{
+                    tabBarIcon: () => {
+                        return (
+                            <Image
+                                source={require("../../assets/Images/ic_search.png")}
+                                style={styles.icon}
+                            />)
+                    }
+                }}
             />
             <MoviesTabNavigator.Screen
                 name="Favorites"
                 component={ FavoritesStack }
-                //component={ Favorites }
+                options={{
+                    tabBarIcon: () => {
+                        return (
+                            <Image
+                                source={require("../../assets/Images/ic_favorite.png")}
+                                style={styles.icon}
+                            />)
+                    }
+                }}
             />
         </MoviesTabNavigator.Navigator>
     );
