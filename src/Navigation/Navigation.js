@@ -59,8 +59,8 @@ function MyTabs() {
         <MoviesTabNavigator.Navigator>
             <MoviesTabNavigator.Screen
                 name="Search"
-//                component={ SearchStack }
-                  component={ Search }
+                component={ SearchStack }
+//                component={ Search }
                 /*
                 screenOptions={ } => ({
                     tabBarIcon: ({ })
@@ -68,8 +68,9 @@ function MyTabs() {
             />
             <MoviesTabNavigator.Screen
                 name="Favorites"
-                //component={ FavoritesStack } />
-                component={ Favorites } />
+                component={ FavoritesStack }
+                //component={ Favorites }
+            />
         </MoviesTabNavigator.Navigator>
     );
 }
